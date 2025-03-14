@@ -1,5 +1,14 @@
-import { createPinia } from "pinia";
-import { createPersistedState } from "pinia-plugin-persistedstate";
-const pinia = createPinia();
-pinia.use(createPersistedState());
-export default pinia;
+import { defineStore } from 'pinia'
+import useLoginStore from './service/loginStore'
+import useUserStore from './service/userStore'
+
+export const useMainStore = defineStore(
+    'main',
+    () => {
+        return {
+            useLoginStore,
+            useUserStore,
+        }
+    },
+    { persist: true }
+)

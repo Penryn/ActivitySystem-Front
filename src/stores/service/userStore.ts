@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {reactive} from "vue";
-import type {userInfo} from "../types/user";
+import type {userInfo} from "../../types/user.ts";
 
 const userStore = defineStore(
     "user",

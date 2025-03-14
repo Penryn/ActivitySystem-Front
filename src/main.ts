@@ -3,8 +3,8 @@ import './style.css'
 import ElementPlus from 'element-plus'
 import App from './App.vue'
 import "element-plus/dist/index.css";
+import pinia from './stores/createPinia'
 import router from "./routers/index";
-import pinia from "./stores";
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 
