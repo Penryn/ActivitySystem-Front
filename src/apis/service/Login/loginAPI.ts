@@ -2,7 +2,7 @@ import { request } from "../../axios";
 
 
 const loginAPI = (data: {
-    username: string,
+    stu_id: string,
     password: string
 }) => {
     return request("/api/user/login", {

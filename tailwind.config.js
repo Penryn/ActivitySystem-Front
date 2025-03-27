@@ -5,7 +5,7 @@ export default {
     "./src/**/*.{vue,ts}",
     "./src/**/**/*.{vue,ts}",
   ],
-  darkMode: false, // or 'media' or 'class' 设置暗黑模式
+  darkMode: 'media', // 更新这里，使用 'media' 而不是 false
   theme: {
     extend: {},
   },
