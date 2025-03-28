@@ -31,7 +31,18 @@
           </el-input>
         </el-form-item>
 
-
+        <div class="w-full flex justify-end mt-2">
+          <button type="button" @click="goToReg"
+            class="text-blue-500 hover:text-blue-700 group relative overflow-hidden py-2 px-4 rounded-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50">
+            <span class="relative z-10 flex items-center group-hover:translate-x-1 transition-transform duration-300 ease-in-out">
+              新用户注册
+              <el-icon class="ml-1 group-hover:translate-x-1 transition-transform duration-300 ease-in-out">
+                <ArrowRight />
+              </el-icon>
+            </span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300 ease-out"></span>
+          </button>
+        </div>
 
         <div class="flex justify-center gap-4 w-full pt-4">
           <button @click="handleLogin"
@@ -68,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive} from "vue";
+import { ref, reactive } from "vue";
 import { loginAPI } from "@/apis";
 import { useMainStore } from "@/stores";
 import { useRequest } from "vue-hooks-plus";
@@ -77,9 +88,11 @@ import {
   User,
   Lock,
   Key,
-  Delete
+  Delete,
+  ArrowRight
 } from '@element-plus/icons-vue';
 import router from "@/routers";
+import { log, time } from "console";
 
 // 表单引用
 const formRef = ref<FormInstance>();
@@ -95,7 +108,7 @@ const rules = {
   stu_id: [
     { required: true, message: '请输入学号', trigger: 'blur' },
     { min: 12, max: 12, message: '学号长度应有12位数字构成', trigger: 'blur' },
-    { pattern: /^[0-9]+$/, message: '学号应为数字', trigger: 'blur' }
+    { pattern: /^[0-9]+$/, message: '学号应全为数字', trigger: 'blur' }
   ],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' }
@@ -114,7 +127,11 @@ const userStore = useMainStore().useUserStore();
 const handleLogin = () => {
   formRef.value?.validate((valid) => {
     if (!valid) {
-      ElMessage.warning('请填写完整的登录信息');
+      ElNotification({
+        title: '登录失败',
+        message: '请填写完整的登录信息',
+        type: 'error',
+      });
       return;
     }
 
@@ -173,6 +190,11 @@ const handleLogin = () => {
 const resetForm = () => {
   formRef.value?.resetFields();
 };
+
+// 跳转到注册
+const goToReg = () => {
+  router.push('/reg')
+}
 </script>
 
 <style scoped>
