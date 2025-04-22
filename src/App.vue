@@ -17,7 +17,13 @@
 
         <!-- 右侧导航菜单 -->
         <div class="flex items-center space-x-4" v-if="loginStore.loginSession">
-          <el-menu class="border-b-0" mode="horizontal" :ellipsis="false" :router="true">
+          <el-menu 
+            class="border-b-0" 
+            mode="horizontal" 
+            :ellipsis="false" 
+            :router="true"
+            :default-active="activeIndex"
+          >
             <el-menu-item index="/activity/create">
               <el-icon class="mr-1">
                 <Plus />
@@ -26,7 +32,7 @@
             </el-menu-item>
             <el-sub-menu index="2">
               <template #title><el-avatar :size="36" :src="userStore.userSession.avatar" /></template>
-              <el-menu-item index="user/activities"><el-icon>
+              <el-menu-item index="/user/activities"><el-icon>
                   <List />
                 </el-icon>
                 <span class="ml-1">我的活动</span></el-menu-item>
@@ -86,10 +92,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { ElNotification } from "element-plus";
 import router from "@/routers";
 import { useMainStore } from "@/stores";
+import { useRoute } from "vue-router";
 import {
   Document,
   Connection,
@@ -103,6 +110,13 @@ import {
 
 const loginStore = useMainStore().useLoginStore();
 const userStore = useMainStore().useUserStore();
+const route = useRoute();
+const activeIndex = ref('');
+
+// 监听路由变化，更新激活状态
+watch(() => route.path, (newPath) => {
+  activeIndex.value = newPath;
+}, { immediate: true });
 
 // 用户登出
 const logout = () => {

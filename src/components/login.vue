@@ -92,7 +92,6 @@ import {
   ArrowRight
 } from '@element-plus/icons-vue';
 import router from "@/routers";
-import { log, time } from "console";
 
 // 表单引用
 const formRef = ref<FormInstance>();
